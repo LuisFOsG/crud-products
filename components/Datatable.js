@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useState, useContext } from 'react'
 import DataTable, { createTheme } from 'react-data-table-component'
 
 import themeContext from '../context/themeContext'
@@ -30,11 +30,12 @@ createTheme('solarized', {
 
 const DataTableComponent = ({ columns, productsList }) => {
   const { theme } = useContext(themeContext)
+  const [data, setData] = useState(productsList)
 
   return (
     <DataTable
       columns={columns}
-      data={productsList}
+      data={data}
       theme={theme === 'dark' ? 'solarized' : 'default'}
 
       striped
@@ -46,7 +47,7 @@ const DataTableComponent = ({ columns, productsList }) => {
       fixedHeaderScrollHeight='500px'
       noHeader
       subHeader
-      subHeaderComponent={<SubHeader />}
+      subHeaderComponent={<SubHeader setData={setData} productsList={productsList} />}
 
       expandableRows
       expandOnRowClicked
