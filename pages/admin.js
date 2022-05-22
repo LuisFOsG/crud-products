@@ -3,6 +3,8 @@ import DataTable, { createTheme } from 'react-data-table-component';
 
 import themeContext from '../context/themeContext'
 
+import useProducts from '../hooks/useProducts';
+
 const columns = [
   {
     name: 'Titulo',
@@ -15,19 +17,6 @@ const columns = [
     sortable: true,
   },
 ];
-
-const data = [
-  {
-    id: 1,
-    title: 'Beetlejuice',
-    year: '1988',
-  },
-  {
-    id: 2,
-    title: 'Ghostbusters',
-    year: '1984',
-  },
-]
 
 createTheme('solarized', {
   text: {
@@ -52,17 +41,17 @@ createTheme('solarized', {
 }, 'dark');
 
 const ExpandedComponent = ({ data }) => <pre>{JSON.stringify(data, null, 2)}</pre>;
+const SubHeader = () => <h2>Subheader</h2>
 
 export default function Admin() {
   const { theme } = useContext(themeContext)
+  const { productsList } = useProducts()
 
   return (
-    <div>
-      <h1>Admin</h1>
-
+    <>
       <DataTable
         columns={columns}
-        data={data}
+        data={productsList}
         theme={theme === 'dark' ? 'solarized' : 'default'}
 
         striped
@@ -70,14 +59,16 @@ export default function Admin() {
         responsive
         highlightOnHover
 
+        fixedHeader
+        fixedHeaderScrollHeight='500px'
         noHeader
         subHeader
-        subHeaderComponent={<h2>Subheader</h2>}
+        subHeaderComponent={<SubHeader />}
 
         expandableRows
         expandOnRowClicked
         expandableRowsComponent={ExpandedComponent}
       />
-    </div>
+    </>
   )
 }
