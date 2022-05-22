@@ -5,6 +5,7 @@ import themeContext from '../context/themeContext'
 
 import ExpandedComponent from './Expanded'
 import SubHeader from './DatatableHeader'
+import NoDataComponent from './NoDataComponent'
 
 createTheme('solarized', {
   text: {
@@ -36,6 +37,7 @@ const DataTableComponent = ({ columns, productsList }) => {
     <DataTable
       columns={columns}
       data={data}
+      noDataComponent={<NoDataComponent />}
       theme={theme === 'dark' ? 'solarized' : 'default'}
 
       striped

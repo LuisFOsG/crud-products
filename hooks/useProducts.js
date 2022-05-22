@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react'
 
 const useProducts = (products = []) => {
-  const [productsList] = useState(products)
+  const [productsList, setProductsList] = useState(products)
 
   useEffect(() => {
     const getProducts = async () => {
-      /* const res = await fetch('/api/products')
+      const res = await fetch('/api/products')
       const data = await res.json()
 
-      setProductsList(data) */
+      setProductsList(data)
     }
 
     getProducts()

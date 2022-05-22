@@ -1,16 +1,20 @@
 import { useState, useEffect } from 'react'
 
 const usePageData = (data) => {
-  const [pageData, setPageData] = useState(data || {})
+  const [pageData] = useState(data || {
+    title: 'Titulo de Prueba',
+    description: 'Descripción de Prueba',
+    image: 'https://picsum.photos/seed/random/200/300'
+  })
 
   useEffect(() => {
-    const controller = new AbortController()
+    /* const controller = new AbortController()
 
-    fetch('https://628979125da6ddfd5d586fdd.mockapi.io/description', {
+    fetch('/api/description', {
       signal: controller.signal
     })
       .then(res => res.json())
-      .then(data => setPageData(data[0]))
+      .then(data => setPageData(data)) */
   }, [])
 
   return {

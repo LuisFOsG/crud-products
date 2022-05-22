@@ -6,13 +6,11 @@ import themeContext from '../context/themeContext'
 
 import usePageData from '../hooks/usePageData'
 
-const IMAGE_DEFAULT = 'https://picsum.photos/seed/random/200/300'
-
 export default function Home () {
   const { theme, toggleTheme } = useContext(themeContext)
   const { pageData } = usePageData()
 
-  const URL_IMAGE = (pageData?.image || IMAGE_DEFAULT).replace('random', Date.now())
+  const URL_IMAGE = pageData?.image.replace('random', Date.now())
 
   return (
     <div>
@@ -20,7 +18,7 @@ export default function Home () {
         <Image layout='fill' src={`${URL_IMAGE}?v1-${Date.now().toString()}`} alt="Imagen de Prueba"></Image>
       </div>
 
-      <h1>{ pageData?.title || 'Titulo de Prueba' }</h1>
+      <h1>{ pageData?.title }</h1>
 
       <Link href="/products">Products</Link>
       <Link href="/admin">Admin</Link>
