@@ -1,6 +1,7 @@
 import Head from 'next/head'
 
 import { ThemeContextProvider } from '../context/themeContext'
+import { ProductContextProvider } from '../context/productContext'
 
 import usePageData from '../hooks/usePageData'
 
@@ -16,7 +17,9 @@ function MyApp ({ Component, pageProps }) {
       </Head>
 
       <ThemeContextProvider>
-        <Component {...pageProps} />
+        <ProductContextProvider>
+          <Component {...pageProps} />
+        </ProductContextProvider>
       </ThemeContextProvider>
 
       <style global jsx>{`

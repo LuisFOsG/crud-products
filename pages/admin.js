@@ -1,6 +1,7 @@
-import useProducts from '../hooks/useProducts'
-
+import { useContext } from 'react'
 import DataTable from '../components/Datatable'
+
+import ProductContext from '../context/productContext'
 
 const columns = [
   {
@@ -16,7 +17,7 @@ const columns = [
 ]
 
 export default function Admin () {
-  const { productsList } = useProducts()
+  const { productsList } = useContext(ProductContext)
 
   return (
     <>
