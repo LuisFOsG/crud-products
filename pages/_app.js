@@ -4,7 +4,7 @@ import { ThemeContextProvider } from '../context/themeContext'
 
 import usePageData from '../hooks/usePageData'
 
-function MyApp({ Component, pageProps }) {
+function MyApp ({ Component, pageProps }) {
   const { pageData } = usePageData()
 
   return (

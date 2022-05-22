@@ -11,16 +11,16 @@ const useToggleTheme = () => {
   }, [])
 
   const toggleTheme = () => {
-    const currentTheme = document.documentElement.dataset.theme;
+    const currentTheme = document.documentElement.dataset.theme
 
     if (currentTheme === 'dark') {
       setTheme('light')
-      document.documentElement.dataset.theme = 'light';
-      window.localStorage.setItem('theme', 'light');
+      document.documentElement.dataset.theme = 'light'
+      window.localStorage.setItem('theme', 'light')
     } else {
       setTheme('dark')
-      document.documentElement.dataset.theme = 'dark';
-      window.localStorage.setItem('theme', 'dark');
+      document.documentElement.dataset.theme = 'dark'
+      window.localStorage.setItem('theme', 'dark')
     }
   }
 

@@ -4,8 +4,8 @@ const nextConfig = {
   reactStrictMode: true,
   styledComponents: true,
   images: {
-    domains: ['picsum.photos'],
-  },
+    domains: ['picsum.photos']
+  }
 }
 
 module.exports = nextConfig

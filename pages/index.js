@@ -6,9 +6,9 @@ import themeContext from '../context/themeContext'
 
 import usePageData from '../hooks/usePageData'
 
-const IMAGE_DEFAULT = "https://picsum.photos/seed/random/200/300"
+const IMAGE_DEFAULT = 'https://picsum.photos/seed/random/200/300'
 
-export default function Home() {
+export default function Home () {
   const { theme, toggleTheme } = useContext(themeContext)
   const { pageData } = usePageData()
 
@@ -17,7 +17,7 @@ export default function Home() {
   return (
     <div>
       <div className='wrapper-image'>
-        <Image layout='fill' src={`${ URL_IMAGE }?v1-${Date.now().toString()}`} alt="Imagen de Prueba"></Image>
+        <Image layout='fill' src={`${URL_IMAGE}?v1-${Date.now().toString()}`} alt="Imagen de Prueba"></Image>
       </div>
 
       <h1>{ pageData?.title || 'Titulo de Prueba' }</h1>

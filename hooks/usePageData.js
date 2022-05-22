@@ -4,7 +4,7 @@ const usePageData = (data) => {
   const [pageData, setPageData] = useState(data || {})
 
   useEffect(() => {
-    let controller = new AbortController();
+    const controller = new AbortController()
 
     fetch('https://628979125da6ddfd5d586fdd.mockapi.io/description', {
       signal: controller.signal
