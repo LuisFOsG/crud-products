@@ -10,11 +10,15 @@
     "start": "next start"
   },
   "dependencies": {
+    "firebase": "9.8.1",
+    "firebase-admin": "10.2.0",
     "next": "12.1.6",
     "react": "18.1.0",
     "react-data-table-component": "7.5.2",
     "react-dom": "18.1.0",
-    "styled-components": "5.3.5"
+    "styled-components": "5.3.5",
+    "sweetalert2": "11.4.15",
+    "sweetalert2-react-content": "5.0.0"
   },
   "devDependencies": {
     "@babel/core": "7.18.0",
