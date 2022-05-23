@@ -3,14 +3,15 @@ import { createContext } from 'react'
 import useProducts from '../hooks/useProducts'
 
 const Context = createContext({
-  productsList: []
+  productsList: [],
+  updateProductsList: async () => {}
 })
 
 export const ProductContextProvider = ({ children }) => {
-  const { productsList } = useProducts()
+  const { productsList, updateProductsList } = useProducts()
 
   return (
-    <Context.Provider value={{ productsList }}>
+    <Context.Provider value={{ productsList, updateProductsList }}>
       { children }
     </Context.Provider>
   )

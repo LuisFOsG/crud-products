@@ -5,25 +5,36 @@ import ProductContext from '../context/productContext'
 
 const columns = [
   {
-    name: 'Titulo',
-    selector: row => row.title,
+    name: 'Nombre',
+    selector: row => row.name,
     sortable: true
   },
   {
-    name: 'Año',
-    selector: row => row.year,
+    name: 'Descripción',
+    selector: row => row.description,
+    sortable: true
+  },
+  {
+    name: 'Precio',
+    selector: row => row.price,
+    sortable: true
+  },
+  {
+    name: 'Cantidad',
+    selector: row => row.quantity,
     sortable: true
   }
 ]
 
 export default function Admin () {
-  const { productsList } = useContext(ProductContext)
+  const { productsList, updateProductsList } = useContext(ProductContext)
 
   return (
     <>
       <DataTable
         columns={columns}
         productsList={productsList}
+        updateProductsList={updateProductsList}
       />
     </>
   )

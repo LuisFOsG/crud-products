@@ -6,14 +6,14 @@ import FormProduct from './FormProduct'
 
 const MySwal = withReactContent(Swal)
 
-const SubHeader = ({ productsList, setData }) => {
+const SubHeader = ({ productsList, updateProductsList, setData }) => {
   const handleClick = () => {
     const alert = MySwal.fire({
       imageUrl: 'https://placeholder.pics/svg/200x200',
       showCloseButton: true,
       showCancelButton: false,
       showConfirmButton: false,
-      html: <FormProduct/>
+      html: <FormProduct updateProductsList={updateProductsList}/>
     })
 
     alert.imageUrl = 'https://placeholder.pics/svg/300x200'

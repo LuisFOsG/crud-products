@@ -1,21 +1,27 @@
 import { useState, useEffect } from 'react'
 
+import { getProducts } from '../firebase/client'
+
 const useProducts = (products = []) => {
   const [productsList, setProductsList] = useState(products)
 
   useEffect(() => {
-    const getProducts = async () => {
-      const res = await fetch('/api/products')
-      const data = await res.json()
-
-      setProductsList(data)
+    const getProductsEffect = async () => {
+      const products = await getProducts()
+      setProductsList(products)
     }
 
-    getProducts()
+    getProductsEffect()
   }, [])
 
+  const updateProductsList = async () => {
+    const products = await getProducts()
+    setProductsList(products)
+  }
+
   return {
-    productsList
+    productsList,
+    updateProductsList
   }
 }
 

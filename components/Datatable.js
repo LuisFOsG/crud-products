@@ -29,7 +29,7 @@ createTheme('solarized', {
   }
 }, 'dark')
 
-const DataTableComponent = ({ columns, productsList }) => {
+const DataTableComponent = ({ columns, productsList, updateProductsList }) => {
   const { theme } = useContext(themeContext)
   const [data, setData] = useState(productsList)
 
@@ -49,7 +49,11 @@ const DataTableComponent = ({ columns, productsList }) => {
       fixedHeaderScrollHeight='500px'
       noHeader
       subHeader
-      subHeaderComponent={<SubHeader setData={setData} productsList={productsList} />}
+      subHeaderComponent={<SubHeader
+        setData={setData}
+        productsList={productsList}
+        updateProductsList={updateProductsList}
+      />}
 
       expandableRows
       expandOnRowClicked

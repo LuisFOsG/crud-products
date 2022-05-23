@@ -1,6 +1,14 @@
+import { useState } from 'react'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+
 import { addProduct } from '../firebase/client'
 
-const FormProduct = () => {
+const MySwal = withReactContent(Swal)
+
+const FormProduct = ({ updateProductsList }) => {
+  const [loading, setLoading] = useState(false)
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     const form = e.target
@@ -11,14 +19,32 @@ const FormProduct = () => {
       data[key] = value
     })
 
-    const result = await addProduct({
+    setLoading(true)
+    addProduct({
       name: data.name,
       description: data.description,
-      price: data.price,
-      quantity: data.quantity
+      price: parseFloat(data.price),
+      quantity: parseInt(data.quantity)
     })
+      .then(async () => {
+        setLoading(false)
+        form.reset()
 
-    console.log(result)
+        MySwal.fire({
+          title: 'Producto Agregado',
+          text: 'El producto se ha agregado correctamente',
+          type: 'success'
+        })
+
+        await updateProductsList()
+      }).catch((_e) => {
+        setLoading(false)
+        MySwal.fire({
+          title: 'Error',
+          text: 'Ha ocurrido un error al agregar el producto',
+          type: 'error'
+        })
+      })
   }
 
   return (
@@ -29,7 +55,7 @@ const FormProduct = () => {
       <input type="number" name="price" placeholder="Precio del Producto" />
       <input type="number" name="quantity" placeholder="Cantidades Existentes" />
 
-      <button type="submit">Agregar Producto</button>
+      <button disabled={!!loading} type="submit">Agregar Producto</button>
      </form>
     </>
   )
