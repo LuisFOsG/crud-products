@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-const EXCLUDE_ROW = ['id']
+const EXCLUDE_ROW = ['id', 'editedAt', 'createdAt']
 
 const useSearch = ({ productsList, setData }) => {
   const [query, setQuery] = useState('')

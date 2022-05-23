@@ -1,5 +1,6 @@
 import { useContext } from 'react'
 import DataTable from '../components/Datatable'
+import TimeAgo from '../components/TimeAgo'
 
 import ProductContext from '../context/productContext'
 
@@ -22,6 +23,20 @@ const columns = [
   {
     name: 'Cantidad',
     selector: row => row.quantity,
+    sortable: true
+  },
+  {
+    name: 'Fecha de Creación',
+    selector: row => {
+      return <TimeAgo timestamp={row.createdAt} />
+    },
+    sortable: true
+  },
+  {
+    name: 'Última Edición',
+    selector: row => {
+      return <TimeAgo timestamp={row.editedAt} />
+    },
     sortable: true
   }
 ]
