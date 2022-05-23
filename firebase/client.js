@@ -1,4 +1,5 @@
 import { initializeApp } from 'firebase/app'
+import { getStorage, ref, uploadBytesResumable } from 'firebase/storage'
 
 import {
   getFirestore,
@@ -15,9 +16,10 @@ const firebaseConfig = JSON.parse(process.env.NEXT_PUBLIC_FIREBASE_APIKEY)
 initializeApp(firebaseConfig)
 const db = getFirestore()
 
-export const addProduct = async ({ name, description, price, quantity }) => {
+export const addProduct = async ({ name, image, description, price, quantity }) => {
   return await addDoc(collection(db, 'products'), {
     name,
+    image,
     description,
     price,
     quantity,
@@ -51,4 +53,10 @@ export const getProducts = async () => {
 
   if (!snapshots) return []
   return snapshots.docs.map(productsFirebase)
+}
+
+export const uploadImage = (file) => {
+  const storage = getStorage()
+  const storageRef = ref(storage, `images/${file.name}`)
+  return uploadBytesResumable(storageRef, file)
 }

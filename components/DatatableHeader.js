@@ -9,7 +9,6 @@ const MySwal = withReactContent(Swal)
 const SubHeader = ({ productsList, updateProductsList, setData }) => {
   const handleClick = () => {
     const alert = MySwal.fire({
-      imageUrl: 'https://placeholder.pics/svg/200x200',
       showCloseButton: true,
       showCancelButton: false,
       showConfirmButton: false,
@@ -22,7 +21,7 @@ const SubHeader = ({ productsList, updateProductsList, setData }) => {
   return (
     <>
       <SearchInput productsList={productsList} setData={setData} />
-      <button onClick={handleClick}>Agregar Nuevo Producto</button>
+      <button onClick={handleClick}>Agregar Producto</button>
     </>
   )
 }

@@ -4,7 +4,7 @@ const nextConfig = {
   reactStrictMode: true,
   styledComponents: true,
   images: {
-    domains: ['picsum.photos']
+    domains: ['picsum.photos', 'firebasestorage.googleapis.com']
   }
 }
 

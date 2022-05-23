@@ -1,10 +1,24 @@
 import { useContext } from 'react'
+import Image from 'next/image'
 import DataTable from '../components/Datatable'
 import TimeAgo from '../components/TimeAgo'
 
 import ProductContext from '../context/productContext'
 
 const columns = [
+  {
+    name: 'Imagen',
+    selector: row => {
+      return (
+        <Image
+          src={row.image}
+          alt={row.name}
+          width={100}
+          height={100}
+        />
+      )
+    }
+  },
   {
     name: 'Nombre',
     selector: row => row.name,
