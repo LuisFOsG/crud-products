@@ -1,27 +1,27 @@
-import SearchInput from './SearchInput'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+
+/* import { removeProduct } from '../firebase/client' */
 
 import FormProduct from './FormProduct'
 
 const MySwal = withReactContent(Swal)
 
-const SubHeader = ({ productsList, updateProductsList, setData }) => {
+const EditForm = ({ row, updateProducts }) => {
   const handleClick = () => {
     MySwal.fire({
       showCloseButton: true,
       showCancelButton: false,
       showConfirmButton: false,
-      html: <FormProduct updateProductsList={updateProductsList}/>
+      html: <FormProduct edit={row} updateProductsList={updateProducts}/>
     })
   }
 
   return (
     <>
-      <SearchInput productsList={productsList} setData={setData} />
-      <button onClick={handleClick}>Agregar Producto</button>
+      <button onClick={handleClick}>Editar</button>
     </>
   )
 }
 
-export default SubHeader
+export default EditForm

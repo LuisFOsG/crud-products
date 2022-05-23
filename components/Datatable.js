@@ -8,18 +8,16 @@ import ExpandedComponent from './Expanded'
 import SubHeader from './DatatableHeader'
 import NoDataComponent from './NoDataComponent'
 import DeleteForm from './DeleteForm'
+import EditForm from './EditForm'
 import TimeAgo from './TimeAgo'
 
 let updateProducts
-
-const handleButtonEdit = async (row) => {
-  console.log(row)
-}
 
 const COLUMNS = [
   {
     name: 'Imagen',
     selector: row => {
+      if (!row.image) return <p>Empty</p>
       return (
         <Image
           src={row.image}
@@ -32,35 +30,35 @@ const COLUMNS = [
   },
   {
     name: 'Nombre',
-    selector: row => row.name,
+    selector: row => row.name || '',
     sortable: true
   },
   {
     name: 'Descripción',
-    selector: row => row.description,
+    selector: row => row.description || '',
     sortable: true
   },
   {
     name: 'Precio',
-    selector: row => row.price,
+    selector: row => row.price || '',
     sortable: true
   },
   {
     name: 'Cantidad',
-    selector: row => row.quantity,
+    selector: row => row.quantity || '',
     sortable: true
   },
   {
     name: 'Fecha de Creación',
     selector: row => {
-      return <TimeAgo timestamp={row.createdAt} />
+      return row.createdAt ? <TimeAgo timestamp={row.createdAt} /> : '-'
     },
     sortable: true
   },
   {
     name: 'Última Edición',
     selector: row => {
-      return <TimeAgo timestamp={row.editedAt} />
+      return row.editedAt ? <TimeAgo timestamp={row.editedAt} /> : '-'
     },
     sortable: true
   },
@@ -68,7 +66,7 @@ const COLUMNS = [
     cell: (row) => {
       return (
         <>
-          <button onClick={() => { handleButtonEdit(row) }}>Editar</button>
+          <EditForm row={row} updateProducts={updateProducts} />
           <DeleteForm row={row} updateProducts={updateProducts} />
         </>
       )

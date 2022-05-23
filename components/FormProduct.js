@@ -1,35 +1,21 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Image from 'next/image'
 
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
-import { getDownloadURL } from 'firebase/storage'
 
-import { addProduct, uploadImage } from '../firebase/client'
+import { addProduct } from '../firebase/client'
+import useImage from '../hooks/useImage'
 
 const MySwal = withReactContent(Swal)
 
-const FormProduct = ({ updateProductsList }) => {
+const FormProduct = ({ edit, onEditProduct, updateProductsList }) => {
   const [loading, setLoading] = useState(false)
-  const [file, setFile] = useState(null)
-  const [imageUrl, setImageUrl] = useState(null)
-
-  useEffect(() => {
-    if (file) {
-      const onProgress = () => {}
-      const onError = () => {}
-      const onComplete = () => {
-        getDownloadURL(file.snapshot.ref).then((url) => {
-          setImageUrl(url)
-        })
-      }
-      file.on('state_changed', onProgress, onError, onComplete)
-    }
-  }, [file])
+  const { imageUrl, handleImageEvent } = useImage()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    if (!imageUrl) return
+    if (!imageUrl && !edit) return
 
     const form = e.target
     const formData = new FormData(form)
@@ -38,6 +24,12 @@ const FormProduct = ({ updateProductsList }) => {
     formData.forEach((value, key) => {
       data[key] = value
     })
+
+    if (edit) {
+      return MySwal.fire({
+        text: '¿Estás seguro de actualizar el producto?'
+      })
+    }
 
     setLoading(true)
     addProduct({
@@ -68,10 +60,7 @@ const FormProduct = ({ updateProductsList }) => {
       })
   }
 
-  const handleImage = (e) => {
-    const task = uploadImage(e.target.files[0])
-    setFile(task)
-  }
+  const DEFAULT_IMAGE = edit?.image ? edit.image : 'https://picsum.photos/seed/random/200/300'
 
   return (
     <>
@@ -82,17 +71,19 @@ const FormProduct = ({ updateProductsList }) => {
             <Image width="500" height="300" src={imageUrl} alt="product" />
             )
           : (
-            <Image width="500" height="300" src="https://picsum.photos/seed/random/200/300" alt="product" />
+            <Image width="500" height="300" src={DEFAULT_IMAGE} alt="product" />
             )
       }
 
-      <input autoFocus type="text" name="name" placeholder="Nombre del Producto"/>
-      <input type="text" name="description" placeholder="Descripción del Producto"/>
-      <input type="number" name="price" placeholder="Precio del Producto" />
-      <input type="number" name="quantity" placeholder="Cantidades Existentes" />
-      <input onChange={handleImage} type="file" name="myImage" accept="image/png, image/gif, image/jpeg" />
+      <input value={edit?.name || '' } autoFocus type="text" name="name" placeholder="Nombre del Producto"/>
+      <input value={edit?.description || '' } type="text" name="description" placeholder="Descripción del Producto"/>
+      <input value={edit?.price || '' } type="number" name="price" placeholder="Precio del Producto" />
+      <input value={edit?.quantity || '' } type="number" name="quantity" placeholder="Cantidades Existentes" />
+      <input onChange={handleImageEvent} type="file" name="myImage" accept="image/png, image/gif, image/jpeg" />
 
-      <button disabled={!!loading} type="submit">Agregar Producto</button>
+      <button disabled={!!loading} type="submit">
+        { edit ? 'Editar' : 'Agregar' } Producto
+      </button>
      </form>
     </>
   )

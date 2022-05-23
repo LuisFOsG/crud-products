@@ -14,7 +14,7 @@ async function handleButtonDelete ({ row, updateProducts }) {
 const DeleteForm = ({ row, updateProducts }) => {
   const handleClick = () => {
     MySwal.fire({
-      title: 'Esta seguro?',
+      title: '¿Estás seguro?',
       text: 'No podras revertir esta acción!',
       icon: 'warning',
       showCancelButton: true,
