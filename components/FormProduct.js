@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import Image from 'next/image'
-
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 
@@ -26,9 +25,13 @@ const FormProduct = ({ edit, onEditProduct, updateProductsList }) => {
     })
 
     if (edit) {
-      return MySwal.fire({
-        text: '¿Estás seguro de actualizar el producto?'
+      setLoading(true)
+      await onEditProduct({
+        ...data,
+        id: edit.id,
+        image: imageUrl
       })
+      return setLoading(false)
     }
 
     setLoading(true)
@@ -75,10 +78,10 @@ const FormProduct = ({ edit, onEditProduct, updateProductsList }) => {
             )
       }
 
-      <input value={edit?.name || '' } autoFocus type="text" name="name" placeholder="Nombre del Producto"/>
-      <input value={edit?.description || '' } type="text" name="description" placeholder="Descripción del Producto"/>
-      <input value={edit?.price || '' } type="number" name="price" placeholder="Precio del Producto" />
-      <input value={edit?.quantity || '' } type="number" name="quantity" placeholder="Cantidades Existentes" />
+      <input defaultValue={edit?.name || '' } autoFocus type="text" name="name" placeholder="Nombre del Producto"/>
+      <input defaultValue={edit?.description || '' } type="text" name="description" placeholder="Descripción del Producto"/>
+      <input defaultValue={edit?.price || '' } type="number" name="price" placeholder="Precio del Producto" />
+      <input defaultValue={edit?.quantity || '' } type="number" name="quantity" placeholder="Cantidades Existentes" />
       <input onChange={handleImageEvent} type="file" name="myImage" accept="image/png, image/gif, image/jpeg" />
 
       <button disabled={!!loading} type="submit">

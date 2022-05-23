@@ -13,6 +13,7 @@ import {
   collection,
   doc,
   addDoc,
+  updateDoc,
   deleteDoc,
   getDocs,
   orderBy,
@@ -35,6 +36,21 @@ export const addProduct = async ({ name, image, description, price, quantity }) 
     createdAt: Timestamp.fromDate(new Date()),
     editedAt: Timestamp.fromDate(new Date())
   })
+}
+
+export const editProduct = async ({ id, name, image, description, price, quantity }) => {
+  const document = doc(db, 'products', id)
+  const editedElement = {}
+
+  if (name) editedElement.name = name
+  if (image) editedElement.image = image
+  if (description) editedElement.description = description
+  if (price) editedElement.price = price
+  if (quantity) editedElement.quantity = quantity
+
+  editedElement.editedAt = Timestamp.fromDate(new Date())
+
+  return await updateDoc(document, editedElement)
 }
 
 export const removeProduct = async ({ id }) => {
