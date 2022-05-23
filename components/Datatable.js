@@ -1,4 +1,5 @@
 import { useState, useContext } from 'react'
+import Image from 'next/image'
 import DataTable, { createTheme } from 'react-data-table-component'
 
 import themeContext from '../context/themeContext'
@@ -6,6 +7,77 @@ import themeContext from '../context/themeContext'
 import ExpandedComponent from './Expanded'
 import SubHeader from './DatatableHeader'
 import NoDataComponent from './NoDataComponent'
+import DeleteForm from './DeleteForm'
+import TimeAgo from './TimeAgo'
+
+let updateProducts
+
+const handleButtonEdit = async (row) => {
+  console.log(row)
+}
+
+const COLUMNS = [
+  {
+    name: 'Imagen',
+    selector: row => {
+      return (
+        <Image
+          src={row.image}
+          alt={row.name}
+          width={100}
+          height={100}
+        />
+      )
+    }
+  },
+  {
+    name: 'Nombre',
+    selector: row => row.name,
+    sortable: true
+  },
+  {
+    name: 'Descripción',
+    selector: row => row.description,
+    sortable: true
+  },
+  {
+    name: 'Precio',
+    selector: row => row.price,
+    sortable: true
+  },
+  {
+    name: 'Cantidad',
+    selector: row => row.quantity,
+    sortable: true
+  },
+  {
+    name: 'Fecha de Creación',
+    selector: row => {
+      return <TimeAgo timestamp={row.createdAt} />
+    },
+    sortable: true
+  },
+  {
+    name: 'Última Edición',
+    selector: row => {
+      return <TimeAgo timestamp={row.editedAt} />
+    },
+    sortable: true
+  },
+  {
+    cell: (row) => {
+      return (
+        <>
+          <button onClick={() => { handleButtonEdit(row) }}>Editar</button>
+          <DeleteForm row={row} updateProducts={updateProducts} />
+        </>
+      )
+    },
+    ignoreRowClick: true,
+    allowOverflow: true,
+    button: true
+  }
+]
 
 createTheme('solarized', {
   text: {
@@ -29,13 +101,17 @@ createTheme('solarized', {
   }
 }, 'dark')
 
-const DataTableComponent = ({ columns, productsList, updateProductsList }) => {
+const DataTableComponent = ({ productsList, updateProductsList }) => {
   const { theme } = useContext(themeContext)
   const [data, setData] = useState(productsList)
 
+  updateProducts = () => {
+    updateProductsList()
+  }
+
   return (
     <DataTable
-      columns={columns}
+      columns={COLUMNS}
       data={data}
       noDataComponent={<NoDataComponent />}
       theme={theme === 'dark' ? 'solarized' : 'default'}

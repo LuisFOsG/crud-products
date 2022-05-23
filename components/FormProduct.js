@@ -76,11 +76,15 @@ const FormProduct = ({ updateProductsList }) => {
   return (
     <>
      <form onSubmit={handleSubmit}>
-       {
-         imageUrl && (
-            <Image width="500" height="300" src={imageUrl} alt="product" className="img-fluid" />
-         )
-       }
+      {
+        imageUrl
+          ? (
+            <Image width="500" height="300" src={imageUrl} alt="product" />
+            )
+          : (
+            <Image width="500" height="300" src="https://picsum.photos/seed/random/200/300" alt="product" />
+            )
+      }
 
       <input autoFocus type="text" name="name" placeholder="Nombre del Producto"/>
       <input type="text" name="description" placeholder="Descripción del Producto"/>
