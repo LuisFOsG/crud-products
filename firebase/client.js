@@ -100,8 +100,9 @@ export const getProducts = async () => {
 }
 
 export const deleteImage = async (id) => {
-  const storageRef = ref(storage, `images/${id}`)
-  return await deleteObject(storageRef)
+  const storageRef = id ? ref(storage, `images/${id}`) : null
+
+  return storageRef ? await deleteObject(storageRef) : null
 }
 
 export const uploadImage = (file, name) => {

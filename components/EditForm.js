@@ -24,7 +24,7 @@ const EditForm = ({ row, updateProducts }) => {
     MySwal.fire({
       title: 'Producto Editado',
       text: 'El producto se ha editado correctamente',
-      type: 'success'
+      icon: 'success'
     })
   }
 

@@ -10,7 +10,7 @@ const MySwal = withReactContent(Swal)
 
 const FormProduct = ({ edit, onEditProduct, updateProductsList }) => {
   const [loading, setLoading] = useState(false)
-  const { name, imageUrl, handleImageEvent } = useImage()
+  const { infoImage, imageUrl, handleImageEvent } = useImage()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -32,7 +32,7 @@ const FormProduct = ({ edit, onEditProduct, updateProductsList }) => {
         quantity: parseInt(data.quantity),
         id: edit.id,
         image: imageUrl,
-        imageName: name
+        imageName: infoImage.name
       })
       return setLoading(false)
     }
@@ -41,7 +41,7 @@ const FormProduct = ({ edit, onEditProduct, updateProductsList }) => {
     addProduct({
       name: data.name,
       image: imageUrl,
-      imageName: name,
+      imageName: infoImage.name,
       description: data.description,
       price: parseFloat(data.price),
       quantity: parseInt(data.quantity)
@@ -53,7 +53,7 @@ const FormProduct = ({ edit, onEditProduct, updateProductsList }) => {
         MySwal.fire({
           title: 'Producto Agregado',
           text: 'El producto se ha agregado correctamente',
-          type: 'success'
+          icon: 'success'
         })
 
         await updateProductsList()
@@ -62,31 +62,39 @@ const FormProduct = ({ edit, onEditProduct, updateProductsList }) => {
         MySwal.fire({
           title: 'Error',
           text: 'Ha ocurrido un error al agregar el producto',
-          type: 'error'
+          icon: 'error'
         })
       })
   }
 
   const DEFAULT_IMAGE = edit?.image ? edit.image : 'https://picsum.photos/seed/random/200/300'
+  const LOADING = infoImage.loading ? () => { return <div>Cargando...</div> } : null
+  const isRequired = !edit
 
   return (
     <>
      <form onSubmit={handleSubmit}>
       {
-        imageUrl
-          ? (
-            <Image width="500" height="300" src={imageUrl} alt="product" />
-            )
-          : (
-            <Image width="500" height="300" src={DEFAULT_IMAGE} alt="product" />
-            )
+        LOADING
+          ? <LOADING/>
+          : imageUrl
+            ? (
+              <Image width="500" height="300" src={imageUrl} alt="product" />
+              )
+            : (
+              <Image width="500" height="300" src={DEFAULT_IMAGE} alt="product" />
+              )
       }
 
-      <input defaultValue={edit?.name || '' } autoFocus type="text" name="name" placeholder="Nombre del Producto"/>
-      <input defaultValue={edit?.description || '' } type="text" name="description" placeholder="Descripción del Producto"/>
-      <input defaultValue={edit?.price || '' } type="number" name="price" placeholder="Precio del Producto" />
-      <input defaultValue={edit?.quantity || '' } type="number" name="quantity" placeholder="Cantidades Existentes" />
-      <input onChange={handleImageEvent} type="file" name="myImage" accept="image/png, image/gif, image/jpeg" />
+      <input defaultValue={edit?.name || '' } autoFocus type="text" name="name" placeholder="Nombre del Producto" required={isRequired}/>
+
+      <input defaultValue={edit?.description || '' } type="text" name="description" placeholder="Descripción del Producto" required={isRequired}/>
+
+      <input defaultValue={edit?.price || '' } type="number" name="price" placeholder="Precio del Producto" required={isRequired} />
+
+      <input defaultValue={edit?.quantity || '' } type="number" name="quantity" placeholder="Cantidades Existentes" required={isRequired} />
+
+      <input onChange={handleImageEvent} type="file" name="myImage" accept="image/png, image/gif, image/jpeg" required={isRequired} />
 
       <button disabled={!!loading} type="submit">
         { edit ? 'Editar' : 'Agregar' } Producto

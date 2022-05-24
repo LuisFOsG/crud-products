@@ -23,6 +23,11 @@ const DeleteForm = ({ row, updateProducts }) => {
     }).then(async (result) => {
       if (result.value) {
         handleButtonDelete({ row, updateProducts })
+        MySwal.fire({
+          title: 'Eliminado!',
+          text: 'El producto ha sido eliminado.',
+          icon: 'success'
+        })
       }
     })
   }

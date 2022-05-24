@@ -1,10 +1,14 @@
 import { useState, useEffect } from 'react'
 import { getDownloadURL } from 'firebase/storage'
 
-import { uploadImage } from '../firebase/client'
+import { uploadImage, deleteImage } from '../firebase/client'
 
 const useImage = () => {
-  const [name, setName] = useState(null)
+  const [infoImage, setInfo] = useState({
+    name: null,
+    loading: false
+  })
+
   const [file, setFile] = useState(null)
   const [imageUrl, setImageUrl] = useState(null)
 
@@ -13,11 +17,23 @@ const useImage = () => {
       const onProgress = () => {}
       const onError = () => {
         setImageUrl(null)
-        setName(null)
+        setInfo(e => {
+          return {
+            ...e,
+            name: null,
+            loading: false
+          }
+        })
       }
       const onComplete = () => {
         getDownloadURL(file.snapshot.ref).then((url) => {
           setImageUrl(url)
+          setInfo(e => {
+            return {
+              ...e,
+              loading: false
+            }
+          })
         })
       }
 
@@ -25,19 +41,27 @@ const useImage = () => {
     }
   }, [file])
 
-  const handleImageEvent = (e) => {
+  const handleImageEvent = async (e) => {
     const newFile = e.target.files[0]
+    if (newFile && infoImage.name) await deleteImage(infoImage.name)
+
     const fileExt = newFile.name.split('.').pop()
 
     const newName = window.btoa(Date.now())
     const task = uploadImage(newFile, `${newName}.${fileExt}`)
 
-    setName(`${newName}.${fileExt}`)
+    setInfo(e => {
+      return {
+        ...e,
+        name: `${newName}.${fileExt}`,
+        loading: true
+      }
+    })
     setFile(task)
   }
 
   return {
-    name,
+    infoImage,
     imageUrl,
     handleImageEvent
   }
