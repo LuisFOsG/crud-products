@@ -13,6 +13,7 @@ import {
   collection,
   doc,
   addDoc,
+  getDoc,
   updateDoc,
   deleteDoc,
   getDocs,
@@ -26,10 +27,11 @@ initializeApp(firebaseConfig)
 const db = getFirestore()
 const storage = getStorage()
 
-export const addProduct = async ({ name, image, description, price, quantity }) => {
+export const addProduct = async ({ name, imageName, image, description, price, quantity }) => {
   return await addDoc(collection(db, 'products'), {
     name,
     image,
+    imageName,
     description,
     price,
     quantity,
@@ -38,9 +40,17 @@ export const addProduct = async ({ name, image, description, price, quantity }) 
   })
 }
 
-export const editProduct = async ({ id, name, image, description, price, quantity }) => {
+export const editProduct = async ({ id, name, imageName, image, description, price, quantity }) => {
   const document = doc(db, 'products', id)
   const editedElement = {}
+
+  if (imageName) {
+    editedElement.imageName = imageName
+    const docu = await getDoc(document)
+    const oldImageName = docu.data().imageName
+    console.log(oldImageName)
+    if (imageName !== oldImageName) await deleteImage(oldImageName)
+  }
 
   if (name) editedElement.name = name
   if (image) editedElement.image = image
@@ -55,6 +65,10 @@ export const editProduct = async ({ id, name, image, description, price, quantit
 
 export const removeProduct = async ({ id }) => {
   const document = doc(db, 'products', id)
+  const docu = await getDoc(document)
+
+  await deleteImage(docu.data().imageName)
+
   return await deleteDoc(document)
 }
 
@@ -90,7 +104,7 @@ export const deleteImage = async (id) => {
   return await deleteObject(storageRef)
 }
 
-export const uploadImage = (file) => {
-  const storageRef = ref(storage, `images/${file.name}`)
+export const uploadImage = (file, name) => {
+  const storageRef = ref(storage, `images/${name}`)
   return uploadBytesResumable(storageRef, file)
 }

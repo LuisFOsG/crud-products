@@ -4,6 +4,7 @@ import { getDownloadURL } from 'firebase/storage'
 import { uploadImage } from '../firebase/client'
 
 const useImage = () => {
+  const [name, setName] = useState(null)
   const [file, setFile] = useState(null)
   const [imageUrl, setImageUrl] = useState(null)
 
@@ -12,6 +13,7 @@ const useImage = () => {
       const onProgress = () => {}
       const onError = () => {
         setImageUrl(null)
+        setName(null)
       }
       const onComplete = () => {
         getDownloadURL(file.snapshot.ref).then((url) => {
@@ -24,11 +26,18 @@ const useImage = () => {
   }, [file])
 
   const handleImageEvent = (e) => {
-    const task = uploadImage(e.target.files[0])
+    const newFile = e.target.files[0]
+    const fileExt = newFile.name.split('.').pop()
+
+    const newName = window.btoa(Date.now())
+    const task = uploadImage(newFile, `${newName}.${fileExt}`)
+
+    setName(`${newName}.${fileExt}`)
     setFile(task)
   }
 
   return {
+    name,
     imageUrl,
     handleImageEvent
   }

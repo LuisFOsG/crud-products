@@ -17,7 +17,7 @@ const COLUMNS = [
   {
     name: 'Imagen',
     selector: row => {
-      if (!row.image) return <p>Empty</p>
+      if (!row.image) return <p> - </p>
       return (
         <Image
           src={row.image}

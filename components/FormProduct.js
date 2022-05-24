@@ -10,7 +10,7 @@ const MySwal = withReactContent(Swal)
 
 const FormProduct = ({ edit, onEditProduct, updateProductsList }) => {
   const [loading, setLoading] = useState(false)
-  const { imageUrl, handleImageEvent } = useImage()
+  const { name, imageUrl, handleImageEvent } = useImage()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -28,8 +28,11 @@ const FormProduct = ({ edit, onEditProduct, updateProductsList }) => {
       setLoading(true)
       await onEditProduct({
         ...data,
+        price: parseFloat(data.price),
+        quantity: parseInt(data.quantity),
         id: edit.id,
-        image: imageUrl
+        image: imageUrl,
+        imageName: name
       })
       return setLoading(false)
     }
@@ -38,6 +41,7 @@ const FormProduct = ({ edit, onEditProduct, updateProductsList }) => {
     addProduct({
       name: data.name,
       image: imageUrl,
+      imageName: name,
       description: data.description,
       price: parseFloat(data.price),
       quantity: parseInt(data.quantity)

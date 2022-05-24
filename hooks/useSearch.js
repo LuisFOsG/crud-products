@@ -12,7 +12,7 @@ const useSearch = ({ productsList, setData }) => {
       const result = Object.keys(product).filter(key => {
         if (EXCLUDE_ROW.includes(key)) return false
 
-        return String(product[key]).toLowerCase().includes(query.toLowerCase())
+        return String(product[key]).toLowerCase().trim().includes(query.toLowerCase().trim())
       })
 
       return result.length > 0

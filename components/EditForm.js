@@ -12,7 +12,8 @@ const EditForm = ({ row, updateProducts }) => {
     await editProduct({
       id: data.id,
       name: data.name,
-      image: `${data.image}?cache-bust=${Date.now()}`,
+      image: data.image ? `${data.image}?cache-bust=${Date.now()}` : null,
+      imageName: data.imageName,
       description: data.description,
       price: data.price,
       quantity: data.quantity
