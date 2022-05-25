@@ -1,7 +1,17 @@
+import { useContext } from 'react'
+
+import ProductContext from '../context/productContext'
+
 const NoDataComponent = () => {
+  const { productsList } = useContext(ProductContext)
+
   return (
     <>
-      <h3>Productos no Encontrados</h3>
+      {
+        productsList.length > 0
+          ? <div>Ningún producto coincide con la busqueda</div>
+          : <div>No hay productos agregados</div>
+      }
     </>
   )
 }

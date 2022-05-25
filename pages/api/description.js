@@ -1,4 +1,4 @@
-export default function handler (req, res) {
+export default function handler (_req, res) {
   res.status(200).json({
     title: 'Drogueria Tecuras',
     description: 'Aplicación para la gestión de productos de droguería',
