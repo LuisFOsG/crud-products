@@ -1,7 +1,10 @@
+import { useState } from 'react'
 import useAdmin from '../hooks/useAdmin'
 
 export default function Login () {
-  const { setToken } = useAdmin({
+  const [message, setMessage] = useState('')
+
+  const { status, setToken } = useAdmin({
     redirectTo: '/admin',
     redirectIfFound: true
   })
@@ -23,9 +26,13 @@ export default function Login () {
       .then(data => {
         if (data.status === 'success') {
           setToken(data.data)
+        } else {
+          setMessage(data.error)
         }
       })
   }
+
+  if (status.loading) return <div>Loading...</div>
 
   return (
     <div>
@@ -34,6 +41,7 @@ export default function Login () {
         <input type="password" name='password' placeholder='Ingrese su contraseña'/>
         <button type="submit">Login</button>
       </form>
+      <p>{message}</p>
     </div>
   )
 }
