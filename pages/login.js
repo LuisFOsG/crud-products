@@ -1,7 +1,7 @@
 import useAdmin from '../hooks/useAdmin'
 
 export default function Login () {
-  useAdmin({
+  const { setToken } = useAdmin({
     redirectTo: '/admin',
     redirectIfFound: true
   })
@@ -20,7 +20,11 @@ export default function Login () {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
     }).then(res => res.json())
-      .then(data => console.log(data))
+      .then(data => {
+        if (data.status === 'success') {
+          setToken(data.data)
+        }
+      })
   }
 
   return (
