@@ -24,15 +24,14 @@ function MyApp ({ Component, pageProps }) {
 
       <style global jsx>{`
         :root {
-          --bg-color: #fafafa;
-          --primary-color: black;
-          --secondary-color: rgb(113, 128, 150);
+          --bg-color: #fcfcfc;
+          --primary-color: rgb(0,0,0);
+          --secondary-color: rgb(15, 15, 15);
         }
-
         [data-theme="dark"] {
-          --bg-color: #121212;
+          --bg-color: #1a1a1a;
           --primary-color: #f4f4f6;
-          --secondary-color: #8999b0;
+          --secondary-color: #e2e9ef;
         }
 
         html,
@@ -40,8 +39,7 @@ function MyApp ({ Component, pageProps }) {
           width: 100%;
           height: 100%;
 
-          font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-            Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+          font-family: 'Rokkitt', serif;
           background-color: var(--bg-color);
         }
 
@@ -54,8 +52,9 @@ function MyApp ({ Component, pageProps }) {
           box-sizing: border-box;
           padding: 0;
           margin: 0;
-        }
 
+          font-family: 'Rokkitt', serif;
+        }
       `}</style>
     </>
   )
