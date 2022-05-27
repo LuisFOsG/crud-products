@@ -65,10 +65,10 @@ const COLUMNS = [
   {
     cell: (row) => {
       return (
-        <>
+        <div>
           <EditForm row={row} updateProducts={updateProducts} />
           <DeleteForm row={row} updateProducts={updateProducts} />
-        </>
+        </div>
       )
     },
     ignoreRowClick: true,

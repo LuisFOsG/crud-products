@@ -19,7 +19,7 @@ const useAdmin = ({
       if (typeof window === 'undefined') return setToken(DEFAULT_DATA)
       const token = JSON.parse(window.localStorage.getItem('admin')) || DEFAULT_DATA
       setToken(token)
-    }, 10000)
+    }, 60000)
 
     return () => {
       clearInterval(checkTokenSetInterval)

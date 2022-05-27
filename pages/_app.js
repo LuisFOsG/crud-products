@@ -25,12 +25,12 @@ function MyApp ({ Component, pageProps }) {
       <style global jsx>{`
         :root {
           --bg-color: #fcfcfc;
-          --bg-color-opacity: #fcfcfc95;
+          --bg-color-opacity: #ececec95;
           --primary-color: rgb(0,0,0);
           --secondary-color: rgb(15, 15, 15);
         }
         [data-theme="dark"] {
-          --bg-color: #1a1a1a;
+          --bg-color: #0a0a0a;
           --bg-color-opacity: #00000094;
           --primary-color: #f4f4f6;
           --secondary-color: #e2e9ef;

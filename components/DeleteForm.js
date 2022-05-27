@@ -35,6 +35,24 @@ const DeleteForm = ({ row, updateProducts }) => {
   return (
     <>
       <button onClick={handleClick}>Eliminar</button>
+      <style jsx>{`
+        button {
+          width: 100%;
+
+          background: #EA645A;
+          color: black;
+
+          border-radius: 15px;
+          border: 0;
+          padding: 0.5rem;
+
+          cursor: pointer;
+        }
+
+        button:hover {
+          background: #F03629;
+        }
+      `}</style>
     </>
   )
 }

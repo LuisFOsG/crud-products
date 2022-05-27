@@ -20,6 +20,26 @@ const SubHeader = ({ productsList, updateProductsList, setData }) => {
     <>
       <SearchInput productsList={productsList} setData={setData} />
       <button onClick={handleClick}>Agregar Producto</button>
+
+      <style jsx>{`
+        button {
+          margin: 0.3rem;
+          border: 0;
+          border-radius: 15px;
+          padding: 1rem;
+
+          font-size: 1.2rem;
+          background-color: var(--primary-color);
+          color: var(--bg-color);
+
+          cursor: pointer;
+        }
+
+        button:hover {
+          background-color: #4F5D66;
+          color: white;
+        }
+      `}</style>
     </>
   )
 }

@@ -40,6 +40,24 @@ const EditForm = ({ row, updateProducts }) => {
   return (
     <>
       <button onClick={handleClick}>Editar</button>
+      <style jsx>{`
+        button {
+          width: 100%;
+
+          background: #51B5D0;
+          color: black;
+
+          border-radius: 15px;
+          border: 0;
+          padding: 0.5rem;
+
+          cursor: pointer;
+        }
+
+        button:hover {
+          background: #4A9BCC;
+        }
+      `}</style>
     </>
   )
 }
