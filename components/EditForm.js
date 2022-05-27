@@ -16,7 +16,10 @@ const EditForm = ({ row, updateProducts }) => {
       imageName: data.imageName,
       description: data.description,
       price: data.price,
-      quantity: data.quantity
+      quantity: data.quantity,
+      viaAdministration: data.viaAdministration,
+      concentration: data.concentration,
+      pharmaceuticalForm: data.pharmaceuticalForm
     })
 
     updateProducts()

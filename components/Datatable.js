@@ -49,18 +49,31 @@ const COLUMNS = [
     sortable: true
   },
   {
+    name: 'Vía Administración',
+    selector: row => row.viaAdministration || '',
+    sortable: true
+  },
+  {
+    name: 'Concentración',
+    selector: row => row.concentration || '',
+    sortable: true
+  },
+  {
+    name: 'Forma Farmacéutica',
+    selector: row => row.pharmaceuticalForm || '',
+    sortable: true
+  },
+  {
     name: 'Fecha de Creación',
     selector: row => {
       return row.createdAt ? <TimeAgo timestamp={row.createdAt} /> : '-'
-    },
-    sortable: true
+    }
   },
   {
     name: 'Última Edición',
     selector: row => {
       return row.editedAt ? <TimeAgo timestamp={row.editedAt} /> : '-'
-    },
-    sortable: true
+    }
   },
   {
     cell: (row) => {

@@ -44,7 +44,10 @@ const FormProduct = ({ edit, onEditProduct, updateProductsList }) => {
       imageName: infoImage.name,
       description: data.description,
       price: parseFloat(data.price),
-      quantity: parseInt(data.quantity)
+      quantity: parseInt(data.quantity),
+      viaAdministration: data.viaAdministration,
+      concentration: data.concentration,
+      pharmaceuticalForm: data.pharmaceuticalForm
     })
       .then(async () => {
         setLoading(false)
@@ -93,6 +96,10 @@ const FormProduct = ({ edit, onEditProduct, updateProductsList }) => {
       <input defaultValue={edit?.price || '' } type="number" name="price" placeholder="Precio del Producto" required={isRequired} />
 
       <input defaultValue={edit?.quantity || '' } type="number" name="quantity" placeholder="Cantidades Existentes" required={isRequired} />
+
+      <input defaultValue={edit?.viaAdministration || '' } type="text" name="viaAdministration" placeholder='Vía Administración' required={isRequired} />
+      <input defaultValue={edit?.concentration || '' } type="text" name="concentration" placeholder='Concentración' required={isRequired} />
+      <input defaultValue={edit?.pharmaceuticalForm || '' } type="text" name="pharmaceuticalForm" placeholder='Forma Farmacéutica' required={isRequired} />
 
       <input onChange={handleImageEvent} type="file" name="myImage" accept="image/png, image/gif, image/jpeg" required={isRequired} />
 

@@ -27,7 +27,17 @@ initializeApp(firebaseConfig)
 const db = getFirestore()
 const storage = getStorage()
 
-export const addProduct = async ({ name, imageName, image, description, price, quantity }) => {
+export const addProduct = async ({
+  name,
+  imageName,
+  image,
+  description,
+  price,
+  quantity,
+  viaAdministration,
+  concentration,
+  pharmaceuticalForm
+}) => {
   return await addDoc(collection(db, 'products'), {
     name,
     image,
@@ -35,12 +45,26 @@ export const addProduct = async ({ name, imageName, image, description, price, q
     description,
     price,
     quantity,
+    viaAdministration,
+    concentration,
+    pharmaceuticalForm,
     createdAt: Timestamp.fromDate(new Date()),
     editedAt: Timestamp.fromDate(new Date())
   })
 }
 
-export const editProduct = async ({ id, name, imageName, image, description, price, quantity }) => {
+export const editProduct = async ({
+  id,
+  name,
+  imageName,
+  image,
+  description,
+  price,
+  quantity,
+  viaAdministration,
+  concentration,
+  pharmaceuticalForm
+}) => {
   const document = doc(db, 'products', id)
   const editedElement = {}
 
@@ -57,6 +81,9 @@ export const editProduct = async ({ id, name, imageName, image, description, pri
   if (description) editedElement.description = description
   if (price) editedElement.price = price
   if (quantity) editedElement.quantity = quantity
+  if (viaAdministration) editedElement.viaAdministration = viaAdministration
+  if (concentration) editedElement.concentration = concentration
+  if (pharmaceuticalForm) editedElement.pharmaceuticalForm = pharmaceuticalForm
 
   editedElement.editedAt = Timestamp.fromDate(new Date())
 
