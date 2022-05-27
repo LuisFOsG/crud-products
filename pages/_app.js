@@ -54,8 +54,8 @@ function MyApp ({ Component, pageProps }) {
           box-sizing: border-box;
           padding: 0;
           margin: 0;
-
           font-family: 'Rokkitt', serif;
+          font-size: 1.3rem;
         }
       `}</style>
     </>

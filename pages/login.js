@@ -6,6 +6,8 @@ import withReactContent from 'sweetalert2-react-content'
 import usePageData from '../hooks/usePageData'
 import useAdmin from '../hooks/useAdmin'
 
+import Loading from '../components/Loading'
+
 const MySwal = withReactContent(Swal)
 
 export default function Login () {
@@ -41,7 +43,7 @@ export default function Login () {
       })
   }
 
-  if (status.loading) return <div>Loading...</div>
+  if (status.loading) return <Loading />
 
   if (message.length > 0) {
     MySwal.fire({

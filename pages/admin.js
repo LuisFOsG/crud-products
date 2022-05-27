@@ -3,6 +3,7 @@ import useAdmin from '../hooks/useAdmin'
 
 import ProductContext from '../context/productContext'
 import DataTable from '../components/Datatable'
+import Loading from '../components/Loading'
 
 export default function Admin () {
   const { productsList, updateProductsList } = useContext(ProductContext)
@@ -11,7 +12,7 @@ export default function Admin () {
     redirectTo: '/login'
   })
 
-  if (status.loading || !status.user) return <div>Loading...</div>
+  if (status.loading || !status.user) return <Loading />
 
   return (
     <>
