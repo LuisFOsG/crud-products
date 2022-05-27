@@ -28,6 +28,10 @@ export default function Home () {
         { pageData?.description }
       </section>
 
+      <footer className="footer">
+        Power by: Luis Osorio & Bryan Muñoz
+      </footer>
+
       <Link href="/products">
         <div className="button-products">
           Productos
@@ -40,7 +44,7 @@ export default function Home () {
         </div>
       </Link>
 
-      <button className="darkmode" onClick={toggleTheme}>{ theme === 'dark' ? 'Modo Claro' : 'Modo Oscuro' }</button>
+      <button className="darkmode" onClick={toggleTheme}>{ theme === 'dark' ? 'Modo Oscuro' : 'Modo Claro' }</button>
 
       <style jsx>{`
         .container {
@@ -145,6 +149,11 @@ export default function Home () {
         .darkmode:hover {
           background-color: #4F5D66;
           color: white;
+        }
+
+        .footer {
+          font-size: 1.5rem;
+          color: var(--secondary-color);
         }
     `}</style>
     </div>

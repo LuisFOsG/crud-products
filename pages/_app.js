@@ -25,11 +25,13 @@ function MyApp ({ Component, pageProps }) {
       <style global jsx>{`
         :root {
           --bg-color: #fcfcfc;
+          --bg-color-opacity: #fcfcfc95;
           --primary-color: rgb(0,0,0);
           --secondary-color: rgb(15, 15, 15);
         }
         [data-theme="dark"] {
           --bg-color: #1a1a1a;
+          --bg-color-opacity: #00000094;
           --primary-color: #f4f4f6;
           --secondary-color: #e2e9ef;
         }
@@ -38,7 +40,7 @@ function MyApp ({ Component, pageProps }) {
         body {
           width: 100%;
           height: 100%;
-
+          font-size: 14px;
           font-family: 'Rokkitt', serif;
           background-color: var(--bg-color);
         }
