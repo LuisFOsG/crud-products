@@ -12,6 +12,7 @@ const MySwal = withReactContent(Swal)
 
 const AdminPage = () => {
   const { pageData, changePageData } = usePageData()
+  const [loading, setLoading] = useState(false)
   const [imageUrl, setImageUrl] = useState(null)
   const [file, setFile] = useState(null)
 
@@ -20,10 +21,12 @@ const AdminPage = () => {
       const onProgress = () => {}
       const onError = () => {
         setImageUrl(null)
+        setLoading(false)
       }
       const onComplete = () => {
         getDownloadURL(file.snapshot.ref).then((url) => {
           setImageUrl(url)
+          setLoading(false)
         })
       }
 
@@ -37,6 +40,7 @@ const AdminPage = () => {
     const fileExt = newFile.name.split('.').pop()
 
     const newName = 'background'
+    setLoading(true)
     const task = uploadImage(newFile, `page/${newName}.${fileExt}`)
     setFile(task)
   }
@@ -51,7 +55,7 @@ const AdminPage = () => {
     }).then(() => {
       MySwal.fire({
         title: 'Datos Guardados',
-        text: 'Los Datos Ingresados se han guardado correctamente',
+        text: 'Los Datos Ingresados se han guardado correctamente. por favor recargue la página',
         icon: 'success'
       })
     })
@@ -63,15 +67,22 @@ const AdminPage = () => {
     <>
       <div className="container">
         <form onSubmit={handleSubmit} className='content'>
+          <label>Titulo de la Página: </label>
           <input name="title" value={pageData?.title || '' } onChange={changePageData} type="text" placeholder='Titulo de la Página' />
+
+          <label>Descripción:</label>
           <textarea name="description" value={pageData?.description || '' } onChange={changePageData} placeholder='Descripción'></textarea>
+
+          <label>Nueva Imagen de fondo</label>
           <input onChange={handleImageEvent} type="file" name="myImage" accept="image/png, image/gif, image/jpeg" />
 
           <button type="submit">Guardar Información</button>
         </form>
 
         <div className='wrap-image'>
-          <Image src={ DEFAULT_IMAGE } layout='fill' objectFit='contain' alt="Imagen" />
+          {
+            loading ? (<div>Cargando...</div>) : <Image src={ DEFAULT_IMAGE } layout='fill' objectFit='contain' alt="Imagen" />
+          }
         </div>
       </div>
 
@@ -84,6 +95,7 @@ const AdminPage = () => {
 
           gap: 2rem;
           padding: 0 4rem;
+          margin-bottom: 2rem;
         }
 
         .content {
@@ -102,10 +114,18 @@ const AdminPage = () => {
           height: 300px;
         }
 
+        label {
+          display: block;
+          margin-top: 1rem;
+          text-align: left;
+          padding-left: 2rem;
+          color: var(--primary-color);
+        }
+
         input, textarea {
           width: 100%;
           padding: 0.5rem 1rem;
-          border: 1px solid #ccc;
+          border: 1px solid #cccccc40;
           background-color: var(--bg-color-opacity);
           color: var(--primary-color);
           border-radius: 5px;
