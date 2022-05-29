@@ -42,6 +42,8 @@ const useImage = () => {
   }, [file])
 
   const handleImageEvent = async (e) => {
+    if (!e.target.files[0]) return
+
     const newFile = e.target.files[0]
     if (newFile && infoImage.name) await deleteImage(infoImage.name)
 

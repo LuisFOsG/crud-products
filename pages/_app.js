@@ -57,6 +57,10 @@ function MyApp ({ Component, pageProps }) {
           font-family: 'Rokkitt', serif;
           font-size: 1.3rem;
         }
+
+        .swal2-popup {
+          background-color: var(--bg-color) !important;
+        }
       `}</style>
     </>
   )
