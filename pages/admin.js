@@ -7,7 +7,7 @@ import ProductContext from '../context/productContext'
 
 import DataTable from '../components/Datatable'
 import Loading from '../components/Loading'
-/* import AdminPage from '../components/AdminPage' */
+import AdminPage from '../components/AdminPage'
 
 export default function Admin () {
   const { theme, toggleTheme } = useContext(themeContext)
@@ -26,7 +26,7 @@ export default function Admin () {
 
       <h1>Panel Administrativo</h1>
 
-      {/* <AdminPage/> */}
+      <AdminPage/>
       <DataTable
         productsList={productsList}
         updateProductsList={updateProductsList}

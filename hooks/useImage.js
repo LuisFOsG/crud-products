@@ -50,7 +50,7 @@ const useImage = () => {
     const fileExt = newFile.name.split('.').pop()
 
     const newName = window.btoa(Date.now())
-    const task = uploadImage(newFile, `${newName}.${fileExt}`)
+    const task = uploadImage(newFile, `images/${newName}.${fileExt}`)
 
     setInfo(e => {
       return {

@@ -13,7 +13,7 @@ function MyApp ({ Component, pageProps }) {
       <Head>
         <title>{ pageData?.title }</title>
         <meta name="description" content={ pageData?.description } />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/logo.png" />
       </Head>
 
       <ThemeContextProvider>

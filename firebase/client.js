@@ -126,6 +126,24 @@ export const getProducts = async () => {
   return snapshots.docs.map(productsFirebase)
 }
 
+export const getInfo = async () => {
+  let snapshots
+  try {
+    snapshots = await getDocs(
+      query(collection(db, 'admin'))
+    )
+  } catch (error) {
+    console.log(error)
+  }
+
+  if (!snapshots) return []
+  return snapshots.docs.map((doc) => {
+    const data = doc.data()
+    data.id = doc.id
+    return data
+  })
+}
+
 export const deleteImage = async (id) => {
   const storageRef = id ? ref(storage, `images/${id}`) : null
 
@@ -133,6 +151,6 @@ export const deleteImage = async (id) => {
 }
 
 export const uploadImage = (file, name) => {
-  const storageRef = ref(storage, `images/${name}`)
+  const storageRef = ref(storage, name)
   return uploadBytesResumable(storageRef, file)
 }

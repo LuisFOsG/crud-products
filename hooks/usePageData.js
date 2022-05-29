@@ -1,24 +1,42 @@
 import { useState, useEffect } from 'react'
 
+import { getInfo } from '../firebase/client'
+
 const usePageData = (data) => {
   const [pageData, setPageData] = useState(data || {
     title: 'Titulo de Prueba',
     description: 'Descripción de Prueba',
-    image: 'https://picsum.photos/seed/random/200/300'
+    image: 'https://picsum.photos/seed/lonuevoo/500/300'
   })
 
-  useEffect(() => {
-    const controller = new AbortController()
+  const changePageData = (data) => {
+    const { name, value } = data.target
 
-    fetch('/api/description', {
-      signal: controller.signal
-    })
-      .then(res => res.json())
-      .then(data => setPageData(data))
+    const newData = {
+      [name]: value
+    }
+
+    setPageData(e => ({
+      ...e,
+      ...newData
+    }))
+  }
+
+  useEffect(() => {
+    const getInfoEffect = async () => {
+      const [info] = await getInfo()
+      setPageData(e => ({
+        ...e,
+        ...info
+      }))
+    }
+
+    getInfoEffect()
   }, [])
 
   return {
-    pageData
+    pageData,
+    changePageData
   }
 }
 

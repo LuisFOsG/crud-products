@@ -4,12 +4,15 @@ import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 
 import { addProduct } from '../firebase/client'
+
+import usePageData from '../hooks/usePageData'
 import useImage from '../hooks/useImage'
 
 const MySwal = withReactContent(Swal)
 
 const FormProduct = ({ edit, onEditProduct, updateProductsList }) => {
   const [loading, setLoading] = useState(false)
+  const { pageData } = usePageData()
   const { infoImage, imageUrl, handleImageEvent } = useImage()
 
   const handleSubmit = async (e) => {
@@ -70,7 +73,7 @@ const FormProduct = ({ edit, onEditProduct, updateProductsList }) => {
       })
   }
 
-  const DEFAULT_IMAGE = edit?.image ? edit.image : 'https://picsum.photos/seed/random/200/300'
+  const DEFAULT_IMAGE = edit?.image ? edit.image : pageData?.image
   const LOADING = infoImage.loading ? () => { return <div>Cargando...</div> } : null
   const isRequired = !edit
 
