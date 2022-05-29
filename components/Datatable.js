@@ -24,6 +24,7 @@ const COLUMNS = [
           alt={row.name}
           width={100}
           height={100}
+          objectFit='contain'
         />
       )
     }
@@ -127,8 +128,6 @@ const DataTableComponent = ({ productsList, updateProductsList }) => {
       responsive
       highlightOnHover
 
-      fixedHeader
-      fixedHeaderScrollHeight='500px'
       noHeader
       subHeader
       subHeaderComponent={<SubHeader
@@ -136,6 +135,10 @@ const DataTableComponent = ({ productsList, updateProductsList }) => {
         productsList={productsList}
         updateProductsList={updateProductsList}
       />}
+
+      paginationComponentOptions={{
+        rowsPerPageText: 'Filas por página:'
+      }}
 
       expandableRows
       expandOnRowClicked

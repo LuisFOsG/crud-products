@@ -83,19 +83,15 @@ const FormProduct = ({ edit, onEditProduct, updateProductsList }) => {
 
       <div className="container">
         <div className="image-container">
-          {
-          LOADING
-            ? <LOADING/>
-            : imageUrl
-              ? (
-                <Image width="500" height="300" src={imageUrl} alt="product" />
-                )
-              : (
-                <Image width="500" height="300" src={DEFAULT_IMAGE} alt="product" />
-                )
-          }
+          <div className='wrap-image'>
+            {
+              LOADING
+                ? <LOADING/>
+                : <Image layout="fill" objectFit='contain' src={imageUrl || DEFAULT_IMAGE} alt="product" />
+            }
+          </div>
 
-          <input onChange={handleImageEvent} type="file" name="myImage" accept="image/png, image/gif, image/jpeg" required={isRequired} />
+          <input className="the-file" onChange={handleImageEvent} type="file" name="myImage" accept="image/png, image/gif, image/jpeg" required={isRequired} />
         </div>
 
         <div className="formulario">
@@ -165,8 +161,19 @@ const FormProduct = ({ edit, onEditProduct, updateProductsList }) => {
         align-items: center;
       }
 
+      .wrap-image {
+        position: relative;
+        width: 100%;
+        height: 20rem;
+      }
+
       .formulario {
         width: 50%;
+      }
+
+      .the-file, .the-file:hover {
+        margin-top: 2rem;
+        border: 0;
       }
 
       label {
@@ -174,6 +181,7 @@ const FormProduct = ({ edit, onEditProduct, updateProductsList }) => {
         margin-top: 1rem;
         text-align: left;
         padding-left: 2rem;
+        color: var(--primary-color);
       }
 
       input, textarea {
@@ -201,6 +209,7 @@ const FormProduct = ({ edit, onEditProduct, updateProductsList }) => {
         padding: 1rem 2rem;
         background-color: var(--primary-color);
         color: var(--bg-color);
+        font-weight: bold;
         cursor: pointer;
       }
 
