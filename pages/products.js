@@ -17,6 +17,10 @@ export default function Products () {
   const { productsList } = useContext(ProductContext)
   const [data, setData] = useState(productsList)
 
+  data.sort((a, b) => {
+    return a.name.localeCompare(b.name)
+  })
+
   return (
     <div>
       <div className='header'>
@@ -30,24 +34,25 @@ export default function Products () {
           data.map(product => (
             <Link href={`/product/${product.id}`} key={product.id}>
               <div className="card">
-              <div className="wrap-image">
-                { product.image && <Image layout="fill" objectFit='contain' src={product.image} alt={product.name} /> }
+                <div className="wrap-image">
+                  { product.image && <Image layout="fill" objectFit='contain' src={product.image} alt={product.name} /> }
+                </div>
+                <div className="card-content">
+                  <h3>{ product.name }</h3>
+                  <small>{ coLocale.format(product.price) }</small>
+                  <p>{ product.description.substring(0, 100).trim() }...</p>
+                </div>
               </div>
-              <div className="card-content">
-                <h3>{ product.name }</h3>
-                <small>{ coLocale.format(product.price) }</small>
-                <p>{ product.description.substring(0, 100).trim() }...</p>
-              </div>
-            </div>
             </Link>
           ))
         }
-        {
-          productsList.length === 0
-            ? (<div>No hay productos disponibles</div>)
-            : data.length === 0 && (<div>No se encontró ningun producto</div>)
-        }
       </div>
+
+      {
+        productsList.length === 0
+          ? (<div className="default">No hay productos disponibles</div>)
+          : data.length === 0 && (<div className="default">No se encontró ningun producto</div>)
+      }
 
       <style jsx>{`
         h1 {
@@ -106,6 +111,12 @@ export default function Products () {
           position: relative;
           width: 100%;
           height: 200px;
+        }
+
+        .default {
+          width: 100%;
+          text-align: center;
+          color: var(--primary-color);
         }
 
         @media (max-width: 768px) {

@@ -2,6 +2,13 @@ import { useState, useEffect } from 'react'
 
 const EXCLUDE_ROW = ['id', 'image', 'editedAt', 'createdAt']
 
+const includeString = (str, search) => {
+  str = String(str).toLowerCase().trim().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+  search = String(search).toLowerCase().trim().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+
+  return str.includes(search)
+}
+
 const useSearch = ({ productsList, setData }) => {
   const [query, setQuery] = useState('')
 
@@ -12,7 +19,7 @@ const useSearch = ({ productsList, setData }) => {
       const result = Object.keys(product).filter(key => {
         if (EXCLUDE_ROW.includes(key)) return false
 
-        return String(product[key]).toLowerCase().trim().includes(query.toLowerCase().trim())
+        return includeString(product[key], query)
       })
 
       return result.length > 0
