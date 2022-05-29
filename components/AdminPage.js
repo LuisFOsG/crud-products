@@ -1,18 +1,63 @@
+import { useState, useEffect } from 'react'
+import { getDownloadURL } from 'firebase/storage'
 import Image from 'next/image'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 import usePageData from '../hooks/usePageData'
 
+import { uploadImage, setInfo } from '../firebase/client'
+
+const MySwal = withReactContent(Swal)
+
 const AdminPage = () => {
   const { pageData, changePageData } = usePageData()
+  const [imageUrl, setImageUrl] = useState(null)
+  const [file, setFile] = useState(null)
 
-  const handleImageEvent = (e) => {
-    console.log(e)
+  useEffect(() => {
+    if (file) {
+      const onProgress = () => {}
+      const onError = () => {
+        setImageUrl(null)
+      }
+      const onComplete = () => {
+        getDownloadURL(file.snapshot.ref).then((url) => {
+          setImageUrl(url)
+        })
+      }
+
+      file.on('state_changed', onProgress, onError, onComplete)
+    }
+  }, [file])
+
+  const handleImageEvent = async (e) => {
+    if (!e.target.files[0]) return
+    const newFile = e.target.files[0]
+    const fileExt = newFile.name.split('.').pop()
+
+    const newName = 'background'
+    const task = uploadImage(newFile, `page/${newName}.${fileExt}`)
+    setFile(task)
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log('Submit')
+    setInfo({
+      id: pageData.id,
+      title: pageData.title,
+      description: pageData.description,
+      image: imageUrl
+    }).then(() => {
+      MySwal.fire({
+        title: 'Datos Guardados',
+        text: 'Los Datos Ingresados se han guardado correctamente',
+        icon: 'success'
+      })
+    })
   }
+
+  const DEFAULT_IMAGE = imageUrl || pageData.image
 
   return (
     <>
@@ -26,7 +71,7 @@ const AdminPage = () => {
         </form>
 
         <div className='wrap-image'>
-          <Image src={ pageData?.image } layout='fill' objectFit='contain' alt="Imagen" />
+          <Image src={ DEFAULT_IMAGE } layout='fill' objectFit='contain' alt="Imagen" />
         </div>
       </div>
 

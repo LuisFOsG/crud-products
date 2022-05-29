@@ -11,7 +11,6 @@ const usePageData = (data) => {
 
   const changePageData = (data) => {
     const { name, value } = data.target
-
     const newData = {
       [name]: value
     }
@@ -25,6 +24,8 @@ const usePageData = (data) => {
   useEffect(() => {
     const getInfoEffect = async () => {
       const [info] = await getInfo()
+      if (!info) return
+
       setPageData(e => ({
         ...e,
         ...info

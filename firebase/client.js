@@ -126,6 +126,22 @@ export const getProducts = async () => {
   return snapshots.docs.map(productsFirebase)
 }
 
+export const setInfo = async ({
+  id,
+  title,
+  description,
+  image
+}) => {
+  const document = doc(db, 'admin', id)
+  const editedElement = {}
+
+  if (title) editedElement.title = title
+  if (description) editedElement.description = description
+  if (image) editedElement.image = image
+
+  return await updateDoc(document, editedElement)
+}
+
 export const getInfo = async () => {
   let snapshots
   try {
