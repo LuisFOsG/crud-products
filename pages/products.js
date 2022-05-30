@@ -4,6 +4,7 @@ import Link from 'next/link'
 
 import ProductContext from '../context/productContext'
 import SearchInput from '../components/SearchInput'
+import Loading from '../components/Loading'
 
 import usePageData from '../hooks/usePageData'
 
@@ -20,6 +21,8 @@ export default function Products () {
   data.sort((a, b) => {
     return a.name.localeCompare(b.name)
   })
+
+  if (pageData.title === '') return <Loading />
 
   return (
     <div>

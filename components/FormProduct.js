@@ -8,6 +8,8 @@ import { addProduct } from '../firebase/client'
 import usePageData from '../hooks/usePageData'
 import useImage from '../hooks/useImage'
 
+import Loading from '../components/Loading'
+
 const MySwal = withReactContent(Swal)
 
 const FormProduct = ({ edit, onEditProduct, updateProductsList }) => {
@@ -76,6 +78,20 @@ const FormProduct = ({ edit, onEditProduct, updateProductsList }) => {
   const DEFAULT_IMAGE = edit?.image ? edit.image : pageData?.image
   const LOADING = infoImage.loading ? () => { return <div>Cargando...</div> } : null
   const isRequired = !edit
+
+  if (pageData.title === '') {
+    return (
+    <div>
+      <Loading />
+      <style global jsx>{`
+        .swal2-popup {
+          width: 60% !important;
+          height: 60% !important;
+        }
+      `}</style>
+    </div>
+    )
+  }
 
   return (
     <>

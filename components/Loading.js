@@ -91,6 +91,16 @@ const Loading = () => {
         top: 56px;
         left: 12px;
       }
+
+      @keyframes load {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
       `}</style>
     </>
   )

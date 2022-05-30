@@ -44,6 +44,7 @@ export default function Login () {
   }
 
   if (status.loading) return <Loading />
+  if (pageData.title === '') return <Loading />
 
   if (message.length > 0) {
     MySwal.fire({

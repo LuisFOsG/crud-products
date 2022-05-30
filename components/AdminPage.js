@@ -5,6 +5,7 @@ import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 
 import usePageData from '../hooks/usePageData'
+import Loading from '../components/Loading'
 
 import { uploadImage, setInfo } from '../firebase/client'
 
@@ -62,6 +63,8 @@ const AdminPage = () => {
   }
 
   const DEFAULT_IMAGE = imageUrl || pageData.image
+
+  if (pageData.title === '') return <Loading />
 
   return (
     <>

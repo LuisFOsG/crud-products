@@ -11,7 +11,7 @@ function MyApp ({ Component, pageProps }) {
   return (
     <>
       <Head>
-        <title>{ pageData?.title }</title>
+        <title>{ pageData?.title || 'Cargando...' }</title>
         <meta name="description" content={ pageData?.description } />
         <link rel="icon" href="/logo.png" />
       </Head>

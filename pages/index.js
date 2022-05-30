@@ -3,6 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import themeContext from '../context/themeContext'
+import Loading from '../components/Loading'
 
 import usePageData from '../hooks/usePageData'
 
@@ -11,6 +12,8 @@ export default function Home () {
   const { pageData } = usePageData()
 
   const URL_IMAGE = pageData.image
+
+  if (pageData.title === '') return <Loading />
 
   return (
     <div className='container'>
@@ -137,6 +140,7 @@ export default function Home () {
         .darkmode {
           margin: 0;
           padding: 0.5rem 1rem;
+          border: 2px solid #ccc;
           border-radius: 15px 0;
 
           font-size: 1.5rem;

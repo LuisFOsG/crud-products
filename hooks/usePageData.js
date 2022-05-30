@@ -4,9 +4,9 @@ import { getInfo } from '../firebase/client'
 
 const usePageData = (data) => {
   const [pageData, setPageData] = useState(data || {
-    title: 'Titulo de Prueba',
-    description: 'Descripción de Prueba',
-    image: 'https://picsum.photos/seed/lonuevoo/500/300'
+    title: '',
+    description: '',
+    image: ''
   })
 
   const changePageData = (data) => {
