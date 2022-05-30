@@ -16,7 +16,7 @@ export default function Home () {
     <div className='container'>
       <div className="wrap">
         <div className='wrapper-image'>
-          <Image layout='fill' src={URL_IMAGE} alt="Imagen de Prueba"></Image>
+          <Image layout='fill' objectFit="cover" src={URL_IMAGE} alt="Imagen de Prueba"></Image>
         </div>
       </div>
 
