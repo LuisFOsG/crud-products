@@ -110,6 +110,10 @@ const FormProduct = ({ edit, onEditProduct, updateProductsList }) => {
             }
           </div>
 
+          {
+            infoImage.error && <div className="error">{infoImage.error}</div>
+          }
+
           <input className="the-file" onChange={handleImageEvent} type="file" name="myImage" accept="image/png, image/gif, image/jpeg" required={isRequired} />
         </div>
 
@@ -193,6 +197,15 @@ const FormProduct = ({ edit, onEditProduct, updateProductsList }) => {
       .the-file, .the-file:hover {
         margin-top: 2rem;
         border: 0;
+      }
+
+      .error {
+        opacity: 0.7;
+        margin-top: 1rem;
+        color: #FFF;
+        background-color: #F44336;
+        padding: 1rem 2rem;
+        border-radius: 15px;
       }
 
       label {
